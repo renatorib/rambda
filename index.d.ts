@@ -818,8 +818,8 @@ export function not(input: any): boolean;
 /**
  * Curried version of `list[index]`.
  */
-export function nth<T>(index: number, list: readonly T[]): T | undefined;	
-export function nth(index: number): <T>(list: readonly T[]) => T | undefined;
+export function nth<T extends number, A extends [] | unknown[] | string>(index: T, list: A): A[T]
+export function nth<T extends number>(index: T): <A extends [] | unknown[] | string>(list: A) => A[T]
 
 /**
  * It returns a new object with the provided key and value.
@@ -1153,6 +1153,9 @@ export function product(list: readonly number[]): number;
 export function prop<P extends keyof T, T>(propToFind: P, obj: T): T[P];
 export function prop<P extends string | number>(p: P): <T>(propToFind: Record<P, T>) => T;
 export function prop<P extends keyof T, T>(p: P): (propToFind: Record<P, T>) => T;
+
+// export function prop<P extends string, T extends { [Key in T]?: Ob[T] }>(propToFind: P, obj: T): Ob[T]
+// export function prop<P extends string>(propToFind: P): <T extends { [Key in T]?: Ob[T] }>(obj: T) => Ob[T]
 
 /**
  * It returns true if `obj` has property `propToFind` and its value is equal to `valueToMatch`.
